@@ -4,7 +4,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Bikes")
-@SecondaryTable(name = "Owner")
 public class Bike {
 
     @Id
@@ -30,28 +29,20 @@ public class Bike {
     @Column(name = "Price")
     private double price;
 
-    @Column(table = "Owner", name = "Gender")
-    private Gender gender;
-
-    @Column(table = "Owner", name = "First_Name")
-    private String firstName;
-
-    @Column(table = "Owner", name = "Last_Name")
-    private String lastName;
+    @Embedded
+    private Owner owner;
 
     public Bike() {
     }
 
-    public Bike(String brand, String model, BikeType type, boolean isNew, int age, double price, Gender gender, String firstName, String lastName) {
+    public Bike(String brand, String model, BikeType type, boolean isNew, int age, double price, Owner owner) {
         this.brand = brand;
         this.model = model;
         this.type = type;
         this.isNew = isNew;
         this.age = age;
         this.price = price;
-        this.gender = gender;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.owner = owner;
     }
 
     public Long getId() {
@@ -110,27 +101,11 @@ public class Bike {
         this.price = price;
     }
 
-    public Gender getGender() {
-        return gender;
+    public Owner getOwner() {
+        return owner;
     }
 
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setOwner(Owner owner) {
+        this.owner = owner;
     }
 }

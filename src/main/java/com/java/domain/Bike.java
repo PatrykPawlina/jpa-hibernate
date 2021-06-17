@@ -29,7 +29,8 @@ public class Bike {
     @Column(name = "Price")
     private double price;
 
-    @Embedded
+    @OneToOne
+    @JoinColumn(name = "Owner_ID")
     private Owner owner;
 
     public Bike() {

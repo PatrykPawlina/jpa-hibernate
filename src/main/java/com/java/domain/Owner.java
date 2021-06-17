@@ -1,10 +1,14 @@
 package com.java.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 
-@Embeddable
+@Entity
 public class Owner {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
+    private Long id;
 
     @Column(name = "Gender")
     private Gender gender;

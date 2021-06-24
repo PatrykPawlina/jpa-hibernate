@@ -3,34 +3,34 @@ package com.java.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Bikes")
+@Table(name = "bike")
 public class Bike {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "Brand")
+    @Column(name = "brand")
     private String brand;
 
-    @Column(name = "Model")
+    @Column(name = "model")
     private String model;
 
-    @Column(name = "Type")
+    @Column(name = "type")
     private BikeType type;
 
-    @Column(name = "Is_Bike_New")
+    @Column(name = "is_bike_new")
     private boolean isNew;
 
-    @Column(name = "Age")
+    @Column(name = "age")
     private int age;
 
-    @Column(name = "Price")
+    @Column(name = "price")
     private double price;
 
     @OneToOne
-    @JoinColumn(name = "Owner_ID")
+    @JoinColumn(name = "owner_id")
     private Owner owner;
 
     public Bike() {

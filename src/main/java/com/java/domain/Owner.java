@@ -3,21 +3,25 @@ package com.java.domain;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "owner")
 public class Owner {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "Gender")
+    @Column(name = "gender")
     private Gender gender;
 
-    @Column(name = "First_Name")
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "Last_Name")
+    @Column(name = "last_name")
     private String lastName;
+
+    @OneToOne(mappedBy = "owner")
+    private Bike bike;
 
     public Owner() {
     }

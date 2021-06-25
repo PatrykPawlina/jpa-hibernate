@@ -5,10 +5,7 @@ import com.java.domain.BikeType;
 import com.java.domain.Gender;
 import com.java.domain.Owner;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 import java.util.List;
 
 public class App {
@@ -29,10 +26,36 @@ public class App {
 
         TypedQuery<Bike> complexQuery = entityManager.createQuery(
                 "select b from Bike b where b.brand='Trek' order by b.price", Bike.class);
-        List<Bike> resultList = complexQuery.getResultList();
-        for (Bike bike : resultList) {
+        List<Bike> trekBikesList = complexQuery.getResultList();
+        for (Bike bike : trekBikesList) {
             System.out.println("---------------------------");
             complexQueryResult(bike);
+        }
+
+        Query ownersList = entityManager.createQuery(
+                "select concat(o.firstName,' ',o.lastName) from Owner o order by o.firstName");
+        List owners = ownersList.getResultList();
+        for (Object owner : owners) {
+            System.out.println(owner);
+        }
+
+        TypedQuery<Bike> minPricequery = entityManager.createQuery(
+                "select b from Bike b where b.price > :minPrice order by b.price", Bike.class);
+        minPricequery.setParameter("minPrice", 5000.0);
+        List<Bike> resultList = minPricequery.getResultList();
+        for (Bike bike : resultList) {
+            complexQueryResult(bike);
+            System.out.println();
+        }
+
+        TypedQuery<Bike> priceQuery = entityManager.createQuery(
+                "select b from Bike b where b.price > ?1 and b.price< ?2 order by b.price", Bike.class);
+        priceQuery.setParameter(1, 4000.0);
+        priceQuery.setParameter(2, 9000.0);
+        List<Bike> result = priceQuery.getResultList();
+        for (Bike bike : result) {
+            complexQueryResult(bike);
+            System.out.println();
         }
 
         entityManager.close();
